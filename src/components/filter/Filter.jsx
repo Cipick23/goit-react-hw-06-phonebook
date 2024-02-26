@@ -1,28 +1,32 @@
-// Filter.js
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from '../../redux/contactSlice';
+import { getFiltersContacts } from '../../redux/selectors';
 import styles from './Filter.module.css';
-import { Form } from 'react-bootstrap';
-import PropTypes from 'prop-types';
 
-const Filter = ({ filter, handleFilterChange }) => (
-  <Form.Group className="mb-3" controlId="formGroupNumber">
-    <Form.Label className={styles.list}>
-      Search contacts by name:
-      <Form.Control
+export default function Filter() {
+  const dispatch = useDispatch();
+  const filteredContacts = useSelector(getFiltersContacts);
+
+  function changeFilter(e) {
+    const searchContact = e.toLowerCase();
+    dispatch(setFilter(searchContact));
+  }
+
+  return (
+    <div className={styles.filterDiv}>
+      <label className={styles.filterLabel} htmlFor="search">
+        Find contacts by name:
+      </label>
+      <input
+        className={styles.filterInput}
         type="text"
-        name="number"
-        value={filter}
-        placeholder="search contact by name"
-        required
-        onChange={handleFilterChange}
+        name="search"
+        value={filteredContacts}
+        placeholder="Search contacts"
+        onChange={e => {
+          changeFilter(e.target.value);
+        }}
       />
-    </Form.Label>
-  </Form.Group>
-);
-
-Filter.propTypes = {
-  filter: PropTypes.string,
-  handleFilterChange: PropTypes.func,
-};
-
-export default Filter;
+    </div>
+  );
+}

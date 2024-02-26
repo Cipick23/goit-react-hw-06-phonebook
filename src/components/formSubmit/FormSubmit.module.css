@@ -1,0 +1,86 @@
+/* ContactForm.module.css */
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.formFieldWrapper {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.formIcon {
+  position: absolute;
+  top: 50%;
+  left: 0.6rem;
+  transform: translateY(-50%);
+}
+
+.formField {
+  padding: 8px 12px 8px 24px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #111;
+  width: 100%;
+
+  .formField:hover {
+    box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
+  }
+
+  .formField:focus-within {
+    outline: 1px solid rgba(143, 152, 212, 0.658);
+    box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.1);
+  }
+
+  .formField::placeholder {
+    overflow: hidden;
+    color: #777;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+}
+
+.formError {
+  color: #ff0000;
+}
+
+.formLabel {
+  color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.28;
+}
+
+.formSubmitBtn {
+  margin-top: 12px;
+  border: none;
+  outline: none;
+  padding: 8px 20px;
+  border-radius: 24px;
+  cursor: pointer;
+  background-color: #28a745;
+  transition: 0.3s;
+  color: #fff;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+
+  .formSubmitBtn:hover {
+    background-color: #218838;
+  }
+
+  .formSubmitBtn:active {
+    transform: translateY(2px);
+  }
+}

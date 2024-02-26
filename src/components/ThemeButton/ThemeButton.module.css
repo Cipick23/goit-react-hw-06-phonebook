@@ -1,0 +1,20 @@
+.switcherTheme {
+  border: 2px;
+  outline: none;
+  background: none;
+  border-radius: 1.2rem;
+  cursor: pointer;
+  position: absolute;
+  top: 37px;
+  left: 8px;
+  transition: 0.4s;
+}
+
+.iconClick {
+  font-size: 24px;
+  transition: 0.3s;
+}
+
+.iconClick:hover {
+  color: var(--deleteBtn);
+}

@@ -1,36 +1,50 @@
-// ContactList.js
 import React from 'react';
-import { ListGroup, Button } from 'react-bootstrap';
-import styles from './ContactList.module.css'
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { getContacts, getFiltersContacts } from '../../redux/selectors';
+import styles from './ContactList.module.css';
+import ContactItems from 'components/contactItems/ContactItems';
 
-const ContactList = ({ contacts, filter, onDeleteContact }) => {
-  const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+export default function ContactsList() {
+  const contacts = useSelector(getContacts);
+  const filteredContacts = useSelector(getFiltersContacts);
+
+  function filteredByContact() {
+    const filter = filteredContacts.toLowerCase();
+    const filtered = contacts.filter(item =>
+      item.contact.toLowerCase().includes(filter)
+    );
+    return filtered;
+  }
+
+  const visibleContacts = filteredByContact();
 
   return (
-    <ListGroup>
-        {filteredContacts.map((contact) => (
-        <ListGroup.Item key={contact.id} className={styles.list}>
-            <span>{contact.name}:</span>
-            <span>{contact.number}</span>
-            <Button
-            variant="danger"
-            className="float-end"
-            onClick={() => onDeleteContact(contact.id)}
-          >
-            Delete
-          </Button>
-        </ListGroup.Item>
-        ))}
-    </ListGroup>
+    <ul className={styles.menu}>
+      {visibleContacts.length === 0 && filteredContacts.length > 0 ? (
+        <li className={`${styles.item} contact-list`}>
+          No matching contacts found
+        </li>
+      ) : visibleContacts.length > 0 ? (
+        visibleContacts.map(({ contact, phoneNumber, id }) => (
+          <ContactItems
+            key={id}
+            id={id}
+            contact={contact}
+            phoneNumber={phoneNumber}
+          />
+        ))
+      ) : contacts.length !== 0 ? (
+        visibleContacts.map(({ contact, phoneNumber, id }) => (
+          <ContactItems
+            key={id}
+            id={id}
+            contact={contact}
+            phoneNumber={phoneNumber}
+          />
+        ))
+      ) : (
+        ''
+      )}
+    </ul>
   );
-};
-
-ContactList.propTypes = {
-  filter: PropTypes.string,
-  handleFilterChange: PropTypes.string
 }
-
-export default ContactList;
